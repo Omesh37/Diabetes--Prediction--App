@@ -609,7 +609,15 @@ if st.session_state.show_result:
     if params.get("back") in (["1"], "1"):
         st.session_state.show_result = False
         st.session_state.result_html = ""
-        st.query_params.clear()
+        # Clear query params using the experimental API to avoid attribute errors
+        try:
+            st.experimental_set_query_params()
+        except Exception:
+            # Fallback for older/newer streamlit versions
+            try:
+                st.query_params = {}
+            except Exception:
+                pass
         result_slot.empty()
         st.experimental_rerun()
     result_slot.markdown(st.session_state.result_html, unsafe_allow_html=True)
