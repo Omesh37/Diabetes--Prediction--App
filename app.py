@@ -2,9 +2,64 @@ import streamlit as st
 import joblib
 import numpy as np
 import pandas as pd
+import time
 
 # Page config
 st.set_page_config(page_title="Diabetes Prediction App", page_icon="🩺", layout="wide")
+
+if 'splash_done' not in st.session_state:
+    st.session_state.splash_done = False
+
+if not st.session_state.splash_done:
+    st.markdown(
+        """
+        <style>
+        .splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(14, 17, 23, 0.3);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            margin: 0;
+            padding: 0;
+            pointer-events: none;
+            animation: fadeOutSplash 2s forwards;
+        }
+        @keyframes fadeOutSplash {
+            0% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.3); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        .heart {
+            font-size: 10rem;
+            animation: heartBeat 1.2s infinite;
+            filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.6));
+        }
+        [data-testid="stHeader"] {
+            display: none;
+        }
+        </style>
+        <div class="splash">
+            <div class="heart">❤️</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    st.session_state.splash_done = True
 
 # Custom UI styling
 st.markdown(
