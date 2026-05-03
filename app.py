@@ -619,13 +619,13 @@ if st.session_state.show_result:
             except Exception:
                 pass
         result_slot.empty()
-        st.experimental_rerun()
+        st.rerun()
     result_slot.markdown(st.session_state.result_html, unsafe_allow_html=True)
     if st.session_state.get("back_button"):
         st.session_state.show_result = False
         st.session_state.result_html = ""
         st.session_state.pop("back_button", None)
         result_slot.empty()
-        st.experimental_rerun()
+        st.rerun()
 
 st.markdown('</div>', unsafe_allow_html=True)
