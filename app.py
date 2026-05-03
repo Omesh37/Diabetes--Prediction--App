@@ -605,11 +605,11 @@ if st.button("Predict"):
     st.session_state.show_result = True
 
 if st.session_state.show_result:
-    params = st.experimental_get_query_params()
-    if params.get("back") == ["1"]:
+    params = st.query_params
+    if params.get("back") in (["1"], "1"):
         st.session_state.show_result = False
         st.session_state.result_html = ""
-        st.experimental_set_query_params()
+        st.query_params.clear()
         result_slot.empty()
         st.experimental_rerun()
     result_slot.markdown(st.session_state.result_html, unsafe_allow_html=True)
